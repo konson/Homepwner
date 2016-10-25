@@ -14,9 +14,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="fkm-1W-eod">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zYz-PZ-29M">
+                                    <state key="normal" title="Edit"/>
+                                    <connections>
+                                        <action selector="toggleEditingModeWithSender:" destination="qzM-bE-oC4" eventType="touchUpInside" id="siz-2O-0I9"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xmd-sW-cfx">
+                                    <state key="normal" title="Add"/>
+                                    <connections>
+                                        <action selector="addNewItemWithSender:" destination="qzM-bE-oC4" eventType="touchUpInside" id="vUB-MK-5Uf"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="xmd-sW-cfx" firstAttribute="leading" secondItem="zYz-PZ-29M" secondAttribute="trailing" constant="8" id="6Dp-fj-9MB"/>
+                                <constraint firstAttribute="trailing" secondItem="xmd-sW-cfx" secondAttribute="trailing" constant="8" id="QOh-Xi-Hzl"/>
+                                <constraint firstItem="xmd-sW-cfx" firstAttribute="width" secondItem="zYz-PZ-29M" secondAttribute="width" id="RSk-Eq-wkL"/>
+                                <constraint firstItem="zYz-PZ-29M" firstAttribute="centerY" secondItem="fkm-1W-eod" secondAttribute="centerY" id="aQI-6n-Q17"/>
+                                <constraint firstItem="xmd-sW-cfx" firstAttribute="centerY" secondItem="fkm-1W-eod" secondAttribute="centerY" id="f2L-2n-EiJ"/>
+                                <constraint firstItem="zYz-PZ-29M" firstAttribute="leading" secondItem="fkm-1W-eod" secondAttribute="leading" constant="8" id="twt-dm-X3z"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UITableViewCell" textLabel="Vde-Iy-mMn" detailTextLabel="8Y8-cM-W9f" style="IBUITableViewCellStyleValue1" id="Xv3-T4-lTW">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xv3-T4-lTW" id="isc-WL-ztG">
                                     <frame key="frameInset" width="375" height="43.5"/>

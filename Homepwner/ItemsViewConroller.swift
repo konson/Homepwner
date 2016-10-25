@@ -10,6 +10,27 @@ import UIKit
 
 class ItemsViewController: UITableViewController {
     
+    @IBAction func addNewItem(sender: AnyObject) {
+        let lastRow = tableView.numberOfRows(inSection: 0)
+        let indexPath = NSIndexPath(row: lastRow, section: 0)
+        
+        tableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
+        
+    }
+    
+    @IBAction func toggleEditingMode(sender: AnyObject) {
+        if isEditing {
+            sender.setTitle("Edit", for: .normal)
+            setEditing(false, animated: true)
+        }
+        else {
+            sender.setTitle("Done", for: .normal)
+            setEditing(true, animated: true)
+        }
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
