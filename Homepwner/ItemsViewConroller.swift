@@ -11,10 +11,13 @@ import UIKit
 class ItemsViewController: UITableViewController {
     
     @IBAction func addNewItem(sender: AnyObject) {
-        let lastRow = tableView.numberOfRows(inSection: 0)
-        let indexPath = NSIndexPath(row: lastRow, section: 0)
+        let newItem = itemStore.createItem()
         
-        tableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
+        if let index = itemStore.allItems.index(of: newItem) {
+            let indexPath = NSIndexPath(row: index, section: 0)
+            
+            tableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
+        }
         
     }
     
@@ -29,7 +32,45 @@ class ItemsViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView,
+                             moveRowAt sourceIndexPath: IndexPath,
+                             to destinationIndexPath: IndexPath) {
+        
+        itemStore.moveItemAtIndex(fromIndex: sourceIndexPath.row,
+                                  toIndex: destinationIndexPath.row)
+    }
     
+    override func tableView(_ tableView: UITableView,
+                            commit editingStyle: UITableViewCellEditingStyle,
+                            forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let item = itemStore.allItems[indexPath.row]
+            
+            let title = "Delete \(item.name)?"
+            let message = "Are you sure you want to delete this itme?"
+            
+            let ac = UIAlertController(title: title,
+                                       message: message,
+                                       preferredStyle: .actionSheet)
+            let cancelAction = UIAlertAction(title: "Cancel",
+                                             style: .cancel,
+                                             handler: nil)
+            ac.addAction(cancelAction)
+            
+            let deleteAction = UIAlertAction(title: "Delete",
+                                             style: .destructive,
+                                             handler: { (action) -> Void in
+                                                self.itemStore.removeItem(item: item)
+                                                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                                                
+            })
+            ac.addAction(deleteAction)
+            
+            // Present the alert conroller
+            present(ac, animated: true, completion: nil)
+
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,11 +90,13 @@ class ItemsViewController: UITableViewController {
     // this itemStore, copulating it with teh itemStore array.
     var itemStore: ItemStore!
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView,
+                            numberOfRowsInSection section: Int) -> Int {
         return itemStore.allItems.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView,
+                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // Get a new or recycled cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)

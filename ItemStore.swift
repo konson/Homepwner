@@ -11,12 +11,7 @@ import UIKit
 class ItemStore { // no need to inherit from NSObject 
     
     var allItems = [Item]()
-    
-    init() {
-        for _ in 0..<5 {
-            createItem()
-        }
-    }
+
     
     func createItem() -> Item {
         let newItem = Item(random: true)
@@ -24,5 +19,21 @@ class ItemStore { // no need to inherit from NSObject
         allItems.append(newItem)
         
         return newItem
+    }
+    
+    func removeItem(item: Item) {
+        if let index = allItems.index(of: item) {
+            allItems.remove(at: index)
+        }
+    }
+    
+    func moveItemAtIndex(fromIndex: Int, toIndex: Int) {
+        if fromIndex == toIndex {
+            return
+        }
+        
+        let movedItem = allItems[fromIndex]
+        
+        allItems.insert(movedItem, at: toIndex)
     }
 }
